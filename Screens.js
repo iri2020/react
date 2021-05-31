@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity } from "react-native";
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, StackActions } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 //teacherPage
@@ -79,10 +79,17 @@ const ScreenContainer = ({ children }) => (
         constructor(props){
             super(props);
             this.state={
+                //Данные для входа
                 userlastname:'', 
                 userpassword:'',
+                //Ошибки и прочее
                 errorMessage: false,
-                errorMessageText: ''
+                errorMessageText: '',
+                //Данные о пользователе
+                userName: '',
+                userLastName: '',
+                userSecondName: '',
+
             };
         }
         Authorization = () =>{
@@ -102,7 +109,7 @@ const ScreenContainer = ({ children }) => (
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://raspisanie-nggtki.000webhostapp.com/auth.php',
+                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/auth.php',
                 JSON.stringify({
                     userlastname: this.state.userlastname,
                     userpassword: this.state.userpassword,
@@ -122,7 +129,10 @@ const ScreenContainer = ({ children }) => (
                         })
                     }, 1600);
                 }else{
-                    navigation.push('TeacherPage');
+                    this.setState({
+                        userLastName: response.data[0][1]
+                    })
+                    navigation.dispatch(StackActions.push('TeacherPage', {lastname: this.state.userLastName}));
                 }
             })
         }
@@ -133,7 +143,7 @@ const ScreenContainer = ({ children }) => (
                     <Text style={styles.text}>Вход в систему</Text>
                     <TextInput value={this.state.userlastname} style={styles.input} placeholder='Фамилия' 
                     onChangeText={userlastname=>this.setState({userlastname})}/>
-                    <TextInput value={this.state.userpassword} style={styles.input} class="test" placeholder='Пароль' 
+                    <TextInput value={this.state.userpassword} style={styles.input} placeholder='Пароль' 
                     onChangeText={userpassword=>this.setState({userpassword})}/>
                 </View>
                 <View  style={styles.navbarButton}>
@@ -159,11 +169,11 @@ const ScreenContainer = ({ children }) => (
     );
   };
   
-  export const TeacherPage = () => {
+  export const TeacherPage = ({navigation, route}) => {
     return (
       <View style={styles.container}>
         <Grid style={styles.tableGrid}>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран понедельник")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('TeacherPageMonday', {lastname: route.params.lastname}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%' , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Понедельник</Text>
             </Row>
@@ -205,6 +215,43 @@ const ScreenContainer = ({ children }) => (
       </View>
     );
   };
+export const TeacherPageMonday = (props) => {
+    class Exensions extends Component{
+        constructor(props){
+            super(props);
+            this.state = ({
+                paraOne: '',
+                paraTwo: '',
+                paraThree: '',
+                paraFour: '',
+            })
+        }
+        Exens = () =>{
+            //'https://cors-anywhere.herokuapp.com/'
+            axios.
+            post(
+                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
+                JSON.stringify({
+                    userlastname: props.route.params.lastname,
+                    dayweek: 'пн',
+                }),
+            ).then((response) => {
+                console.log(response.data);
+            })
+        }
+        render(){
+            this.Exens();
+            return(
+               <View></View>
+            );
+        }
+    }
+    return(
+        <ScreenContainer>
+            <Exensions />
+       </ScreenContainer>
+    )
+};
   export const ForgotPassword = () => {
     return (
       <ScreenContainer>

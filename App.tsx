@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { SignIn, Splash, TeacherPage, ForgotPassword} from './Screens'
+import { SignIn, Splash, TeacherPage, ForgotPassword, TeacherPageMonday} from './Screens'
 
 import Auth from './Auth'
 
@@ -32,6 +32,7 @@ export default () => {
         <AuthStack.Screen name='SignIn' component={SignIn}></AuthStack.Screen>
          <AuthStack.Screen name='TeacherPage' component={TeacherPage}></AuthStack.Screen>
          <AuthStack.Screen name='ForgotPassword' component={ForgotPassword}></AuthStack.Screen>
+         <AuthStack.Screen name='TeacherPageMonday' component={TeacherPageMonday}></AuthStack.Screen>
        </AuthStack.Navigator>
     </NavigationContainer>
   )
