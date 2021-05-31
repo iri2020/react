@@ -28,7 +28,7 @@ export default () => {
   }
   return (
       <NavigationContainer>
-      <AuthStack.Navigator>
+      <AuthStack.Navigator>asd
         <AuthStack.Screen name='Авторизация' component={SignIn}></AuthStack.Screen>
          <AuthStack.Screen name='Страница преподавателя' component={TeacherPage}></AuthStack.Screen>
          <AuthStack.Screen name='Восстановление пароля' component={ForgotPassword}></AuthStack.Screen>
