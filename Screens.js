@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
       },
     tableGridText:{
         textAlign: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 });
 
@@ -226,6 +226,9 @@ export const TeacherPageMonday = (props) => {
                 paraFour: '',
             })
         }
+        componentDidMount(){
+            this.Exens();
+        }
         Exens = () =>{
             //'https://cors-anywhere.herokuapp.com/'
             axios.
@@ -236,22 +239,27 @@ export const TeacherPageMonday = (props) => {
                     dayweek: 'пн',
                 }),
             ).then((response) => {
+                console.log(response);
                 this.setState({
                     paraOne: response.data[0][2],
                     paraTwo: response.data[1][2],
-                    paraThree: response.data[2][2],
-                    //paraFour: response.data[3][2],
+                    paraThree: response.data[2][2],   
                 })
+                if(response.data[3]){
+                    this.setState({
+                        paraFour: response.data[3][2]
+                    })
+                }
             })
         }
         render(){
-            this.Exens();
             return(
-               <View>
-                   <Text>{this.state.paraOne}</Text>
-                   <Text>{this.state.paraTwo}</Text>
-                   <Text>{this.state.paraThree}</Text>
-                   </View>
+               <View style={styles.container}>
+                 <Text>{this.state.paraOne}</Text>
+                 <Text>{this.state.paraTwo}</Text>
+                 <Text>{this.state.paraThree}</Text>
+                 {this.state.paraFour !== '' && <Text>{this.state.paraFour}</Text> }
+                </View>
             );
         }
     }
