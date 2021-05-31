@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import { SignIn, Splash, TeacherPage, ForgotPassword} from './Screens'
 
-import Auth from './Auth's
+import Auth from './Auth'
 
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
