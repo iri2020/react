@@ -236,22 +236,13 @@ export const TeacherPageMonday = (props) => {
                     dayweek: 'пн',
                 }),
             ).then((response) => {
-                this.setState({
-                    paraOne: response.data[0][2],
-                    paraTwo: response.data[1][2],
-                    paraThree: response.data[2][2],
-                    //paraFour: response.data[3][2],
-                })
+                console.log(response.data);
             })
         }
         render(){
             this.Exens();
             return(
-               <View>
-                   <Text>{this.state.paraOne}</Text>
-                   <Text>{this.state.paraTwo}</Text>
-                   <Text>{this.state.paraThree}</Text>
-                   </View>
+               <View></View>
             );
         }
     }
