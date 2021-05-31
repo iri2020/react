@@ -114,7 +114,7 @@ const ScreenContainer = ({ children }) => (
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://raspisanie-nggtki.000webhostapp.com/auth.php',
+                'https://cors-anywhere.herokuapp.com/' + 'https://raspisanie-nggtki.000webhostapp.com/auth.php',
                 JSON.stringify({
                     userlastname: this.state.userlastname,
                     userpassword: this.state.userpassword,
@@ -135,7 +135,7 @@ const ScreenContainer = ({ children }) => (
                     }, 1600);
                 }else{
                     this.setState({
-                        userLastName: response.data[0][1]
+                        userLastName: response.data[0][1],
                     })
                     navigation.dispatch(StackActions.push('Страница преподавателя', {lastname: this.state.userLastName}));
                 }
@@ -178,32 +178,32 @@ const ScreenContainer = ({ children }) => (
     return (
       <View style={styles.container}>
         <Grid style={styles.tableGrid}>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'пн'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%' , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Понедельник</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран вторник")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'вт'}))}>
             <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Вторник</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран среда")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'ср'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Среда</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран четверг")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'чт'}))}>
             <Row style={{backgroundColor: '#a6caf0' , width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Четверг</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран пятница")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'пт'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Пятница</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран суббота")}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'сб'}))}>
             <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Суббота</Text>
             </Row>
@@ -221,6 +221,7 @@ const ScreenContainer = ({ children }) => (
     );
   };
 export const TeacherPageMonday = (props) => {
+    console.log(props);
     class Exensions extends Component{
         constructor(props){
             super(props);
@@ -229,23 +230,49 @@ export const TeacherPageMonday = (props) => {
                 paraTwo: '',
                 paraThree: '',
                 paraFour: '',
+                dayofweek: '',
             })
         }
         componentDidMount(){
+            console.log(this.state);
             this.Exens();
         }
         Exens = () =>{
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
+                'https://cors-anywhere.herokuapp.com/' + 'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
                 JSON.stringify({
                     userlastname: props.route.params.lastname,
-                    dayweek: 'пн',
+                    dayweek: props.route.params.dayofweek,
                 }),
             ).then((response) => {
-                console.log(response);
-                if(response.data[0]){
+                if(props.route.params.dayofweek == 'пн'){
+                    this.setState({
+                        dayofweek: 'Понедельник'
+                    })
+                }else if(props.route.params.dayofweek == 'вт'){
+                    this.setState({
+                        dayofweek: 'Вторник'
+                    })
+                }else if(props.route.params.dayofweek == 'ср'){
+                    this.setState({
+                        dayofweek: 'Среда'
+                    })
+                }else if(props.route.params.dayofweek == 'чт'){
+                    this.setState({
+                        dayofweek: 'Четверг'
+                    })
+                }else if(props.route.params.dayofweek == 'пт'){
+                    this.setState({
+                        dayofweek: 'Пятница'
+                    })
+                }else if(props.route.params.dayofweek == 'сб'){
+                    this.setState({
+                        dayofweek: 'Суббота'
+                    })
+                }
+                if(response.data[1]){
                     this.setState({
                         paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][4]+'. |'+' '+ response.data[0][3]
                     })
@@ -270,6 +297,7 @@ export const TeacherPageMonday = (props) => {
         render(){
             return (
                 <View style={styles.textDayView} >
+                    <Text style={{textAlign: 'center', alignItems: 'flex-start', paddingBottom:5, fontSize: 24, marginBottom:15,borderBottomWidth :2,borderBottomColor: '#c4e2f2'}}>{this.state.dayofweek}</Text>
                     {this.state.paraOne !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraOne}</Text>}
                     {this.state.paraTwo !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraTwo}</Text>}
                     {this.state.paraThree !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraThree}</Text> }
@@ -280,7 +308,6 @@ export const TeacherPageMonday = (props) => {
     }
     return(
         <ScreenContainer>
-         <Text style={{textAlign: 'center', alignItems: 'flex-start', paddingBottom:5, fontSize: 24, marginBottom:15,borderBottomWidth :2,borderBottomColor: '#c4e2f2'}}>Понедельник</Text>
             <Exensions />
        </ScreenContainer>
     )
