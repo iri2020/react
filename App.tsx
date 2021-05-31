@@ -29,10 +29,10 @@ export default () => {
   return (
       <NavigationContainer>
       <AuthStack.Navigator>
-        <AuthStack.Screen name='SignIn' component={SignIn}></AuthStack.Screen>
-         <AuthStack.Screen name='TeacherPage' component={TeacherPage}></AuthStack.Screen>
-         <AuthStack.Screen name='ForgotPassword' component={ForgotPassword}></AuthStack.Screen>
-         <AuthStack.Screen name='TeacherPageMonday' component={TeacherPageMonday}></AuthStack.Screen>
+        <AuthStack.Screen name='Авторизация' component={SignIn}></AuthStack.Screen>
+         <AuthStack.Screen name='Страница преподавателя' component={TeacherPage}></AuthStack.Screen>
+         <AuthStack.Screen name='Восстановление пароля' component={ForgotPassword}></AuthStack.Screen>
+         <AuthStack.Screen name='Расписание' component={TeacherPageMonday}></AuthStack.Screen>
        </AuthStack.Navigator>
     </NavigationContainer>
   )

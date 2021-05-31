@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     tableGridText:{
         textAlign: 'center',
         justifyContent: 'center',
+    },
+    textDayView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 });
 
@@ -109,7 +114,7 @@ const ScreenContainer = ({ children }) => (
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/auth.php',
+                'https://raspisanie-nggtki.000webhostapp.com/auth.php',
                 JSON.stringify({
                     userlastname: this.state.userlastname,
                     userpassword: this.state.userpassword,
@@ -132,7 +137,7 @@ const ScreenContainer = ({ children }) => (
                     this.setState({
                         userLastName: response.data[0][1]
                     })
-                    navigation.dispatch(StackActions.push('TeacherPage', {lastname: this.state.userLastName}));
+                    navigation.dispatch(StackActions.push('Страница преподавателя', {lastname: this.state.userLastName}));
                 }
             })
         }
@@ -150,7 +155,7 @@ const ScreenContainer = ({ children }) => (
                     <Button title='Авторизация' color="#00AEEF" 
                     onPress={this.Authorization}/>
                       <TouchableOpacity>
-                        <Text style={styles.textForgotPassword} onPress={() => navigation.push('ForgotPassword')}>Забыли пароль?</Text>
+                        <Text style={styles.textForgotPassword} onPress={() => navigation.push('Восстановление пароля')}>Забыли пароль?</Text>
                       </TouchableOpacity>
                     <View style={styles.ErrorView}>
                        {(this.state.errorMessage) &&  <Text style={styles.ErrorMessage}>{this.state.errorMessageText}</Text> }
@@ -173,7 +178,7 @@ const ScreenContainer = ({ children }) => (
     return (
       <View style={styles.container}>
         <Grid style={styles.tableGrid}>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('TeacherPageMonday', {lastname: route.params.lastname}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%' , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Понедельник</Text>
             </Row>
@@ -233,38 +238,49 @@ export const TeacherPageMonday = (props) => {
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
+                'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
                 JSON.stringify({
                     userlastname: props.route.params.lastname,
                     dayweek: 'пн',
                 }),
             ).then((response) => {
                 console.log(response);
-                this.setState({
-                    paraOne: response.data[0][2],
-                    paraTwo: response.data[1][2],
-                    paraThree: response.data[2][2],   
-                })
+                if(response.data[0]){
+                    this.setState({
+                        paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][4]+'. |'+' '+ response.data[0][3]
+                    })
+                }
+                if(response.data[1]){
+                    this.setState({
+                        paraTwo: ' № '+response.data[1][0]+'. |'+' '+response.data[1][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[1][4]+'. |'+' '+ response.data[1][3]
+                    })
+                }
+                if(response.data[2]){
+                    this.setState({
+                        paraThree: ' № '+response.data[2][0]+'. |'+' '+response.data[2][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
+                    })
+                }
                 if(response.data[3]){
                     this.setState({
-                        paraFour: response.data[3][2]
+                        paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
                     })
                 }
             })
         }
         render(){
-            return(
-               <View style={styles.container}>
-                 <Text>{this.state.paraOne}</Text>
-                 <Text>{this.state.paraTwo}</Text>
-                 <Text>{this.state.paraThree}</Text>
-                 {this.state.paraFour !== '' && <Text>{this.state.paraFour}</Text> }
+            return (
+                <View style={styles.textDayView} >
+                    {this.state.paraOne !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraOne}</Text>}
+                    {this.state.paraTwo !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraTwo}</Text>}
+                    {this.state.paraThree !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraThree}</Text> }
+                 {this.state.paraFour !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraFour}</Text> }
                 </View>
             );
         }
     }
     return(
         <ScreenContainer>
+         <Text style={{textAlign: 'center', alignItems: 'flex-start', paddingBottom:5, fontSize: 24, marginBottom:15,borderBottomWidth :2,borderBottomColor: '#c4e2f2'}}>Понедельник</Text>
             <Exensions />
        </ScreenContainer>
     )
