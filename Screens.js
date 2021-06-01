@@ -239,9 +239,9 @@ export const StudentPageSelectGroup = ({navigation, route}) =>{
         }
         render(){
             return(
-                <View>
-                    <TextInput placeholder='Введите название группы: Пример: ИС-17' onChangeText={group=>this.setState({group})}></TextInput>
-                    <Button title='Посмотреть расписание' onPress={() => navigation.dispatch(StackActions.push('Страница студента', {group: this.state.group}))}/>
+                <View style={styles.navbar}>
+                    <TextInput style={styles.input} placeholder='Введите название группы: Пример: ИС-17' onChangeText={group=>this.setState({group})}></TextInput>
+                   {this.state.group && <Button title='Посмотреть расписание' onPress={() => navigation.dispatch(StackActions.push('Страница студента', {group: this.state.group}))}/> }
                 </View>
             )
         }
@@ -349,7 +349,7 @@ export const TeacherPageMonday = (props) => {
                         dayofweek: 'Суббота'
                     })
                 }
-                if(response.data[1]){
+                if(response.data[0]){
                     this.setState({
                         paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][4]+'. |'+' '+ response.data[0][3]
                     })
@@ -440,7 +440,7 @@ export const StudentPageMonday = (props) => {
                         dayofweek: 'Суббота'
                     })
                 }
-                /*if(response.data[1]){
+                if(response.data[0]){
                     this.setState({
                         paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][4]+'. |'+' '+ response.data[0][3]
                     })
@@ -459,8 +459,7 @@ export const StudentPageMonday = (props) => {
                     this.setState({
                         paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
                     })
-                }*/
-                console.log(response);
+                }
             })
         }
         render(){
