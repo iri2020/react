@@ -78,6 +78,14 @@ const styles = StyleSheet.create({
 const ScreenContainer = ({ children }) => (
     <View style={styles.container}>{children}</View>
   );
+  export const SelectRole = ({ navigation}) =>{;
+    return(
+        <View>
+            <Button title='Преподаватель' onPress={() => navigation.push('Авторизация')}/>
+            <Button title='Студент' onPress={() => navigation.push('Выбор группы')}/>
+        </View>
+    );
+}
   export const SignIn = ({ navigation }) => {;
    
     class Auth extends Component{
@@ -178,32 +186,32 @@ const ScreenContainer = ({ children }) => (
     return (
       <View style={styles.container}>
         <Grid style={styles.tableGrid}>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'пн'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'пн'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%' , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Понедельник</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'вт'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'вт'}))}>
             <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Вторник</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'ср'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'ср'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Среда</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'чт'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'чт'}))}>
             <Row style={{backgroundColor: '#a6caf0' , width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Четверг</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'пт'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'пт'}))}>
             <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Пятница</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание', {lastname: route.params.lastname, dayofweek: 'сб'}))}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Преподаватель', {lastname: route.params.lastname, dayofweek: 'сб'}))}>
             <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Суббота</Text>
             </Row>
@@ -220,8 +228,77 @@ const ScreenContainer = ({ children }) => (
       </View>
     );
   };
+export const StudentPageSelectGroup = ({navigation, route}) =>{
+    class Stud extends Component{
+        constructor(props){
+            super(props);
+            this.state={
+                group: ''
+
+            };
+        }
+        render(){
+            return(
+                <View>
+                    <TextInput placeholder='Введите название группы: Пример: ИС-17' onChangeText={group=>this.setState({group})}></TextInput>
+                    <Button title='Посмотреть расписание' onPress={() => navigation.dispatch(StackActions.push('Страница студента', {group: this.state.group}))}/>
+                </View>
+            )
+        }
+    }
+    return(
+        <ScreenContainer>
+            <Stud />
+        </ScreenContainer>
+    );
+}
+export const StudentPageCheckRasp = ({navigation, route}) =>{
+return (
+    <View style={styles.container}>
+        <Grid style={styles.tableGrid}>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'пн'}))}>
+            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%' , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Понедельник</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'вт'}))}>
+            <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Вторник</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'ср'}))}>
+            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Среда</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'чт'}))}>
+            <Row style={{backgroundColor: '#a6caf0' , width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Четверг</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'пт'}))}>
+            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Пятница</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'сб'}))}>
+            <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Суббота</Text>
+            </Row>
+            </TouchableOpacity>
+            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран рассписание")}>
+            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:25 , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Расписание на всю неделю</Text>
+            </Row>
+            </TouchableOpacity>
+            <Row style={{backgroundColor: 'white' ,  width: '100%', paddingTop:30, marginTop:10 , height: 100, justifyContent: 'center'}}>
+            <Text style={styles.tableGridText}>Тут какие-нибудь фильтры</Text>
+            </Row>
+        </Grid>
+    </View>
+    );
+}
 export const TeacherPageMonday = (props) => {
-    console.log(props);
     class Exensions extends Component{
         constructor(props){
             super(props);
@@ -292,6 +369,98 @@ export const TeacherPageMonday = (props) => {
                         paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
                     })
                 }
+            })
+        }
+        render(){
+            return (
+                <View style={styles.textDayView} >
+                    <Text style={{textAlign: 'center', alignItems: 'flex-start', paddingBottom:5, fontSize: 24, marginBottom:15,borderBottomWidth :2,borderBottomColor: '#c4e2f2'}}>{this.state.dayofweek}</Text>
+                    {this.state.paraOne !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraOne}</Text>}
+                    {this.state.paraTwo !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraTwo}</Text>}
+                    {this.state.paraThree !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraThree}</Text> }
+                 {this.state.paraFour !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraFour}</Text> }
+                </View>
+            );
+        }
+    }
+    return(
+        <ScreenContainer>
+            <Exensions />
+       </ScreenContainer>
+    )
+};
+export const StudentPageMonday = (props) => {
+    console.log(props);
+    class Exensions extends Component{
+        constructor(props){
+            super(props);
+            this.state = ({
+                paraOne: '',
+                paraTwo: '',
+                paraThree: '',
+                paraFour: '',
+                dayofweek: '',
+            })
+        }
+        componentDidMount(){
+            this.Exens();
+        }
+        Exens = () =>{
+            //'https://cors-anywhere.herokuapp.com/'
+            axios.
+            post(
+                'https://cors-anywhere.herokuapp.com/' + 'https://raspisanie-nggtki.000webhostapp.com/rasp_stud.php',
+                JSON.stringify({
+                    group: props.route.params.group,
+                    dayweek: props.route.params.dayofweek,
+                }),
+            ).then((response) => {
+                if(props.route.params.dayofweek == 'пн'){
+                    this.setState({
+                        dayofweek: 'Понедельник'
+                    })
+                }else if(props.route.params.dayofweek == 'вт'){
+                    this.setState({
+                        dayofweek: 'Вторник'
+                    })
+                }else if(props.route.params.dayofweek == 'ср'){
+                    this.setState({
+                        dayofweek: 'Среда'
+                    })
+                }else if(props.route.params.dayofweek == 'чт'){
+                    this.setState({
+                        dayofweek: 'Четверг'
+                    })
+                }else if(props.route.params.dayofweek == 'пт'){
+                    this.setState({
+                        dayofweek: 'Пятница'
+                    })
+                }else if(props.route.params.dayofweek == 'сб'){
+                    this.setState({
+                        dayofweek: 'Суббота'
+                    })
+                }
+                /*if(response.data[1]){
+                    this.setState({
+                        paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][4]+'. |'+' '+ response.data[0][3]
+                    })
+                }
+                if(response.data[1]){
+                    this.setState({
+                        paraTwo: ' № '+response.data[1][0]+'. |'+' '+response.data[1][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[1][4]+'. |'+' '+ response.data[1][3]
+                    })
+                }
+                if(response.data[2]){
+                    this.setState({
+                        paraThree: ' № '+response.data[2][0]+'. |'+' '+response.data[2][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
+                    })
+                }
+                if(response.data[3]){
+                    this.setState({
+                        paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][4]+'. |'+' '+ response.data[2][3]
+                    })
+                }*/
+                console.log(response);
             })
         }
         render(){
