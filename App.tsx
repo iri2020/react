@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
-import { SignIn, Splash, TeacherPage, ForgotPassword, TeacherPageMonday, SelectRole, StudentPageSelectGroup, StudentPageCheckRasp, StudentPageMonday} from './Screens'
+import { SignIn, Splash, TeacherPage, ForgotPassword, TeacherPageMonday, SelectRole, StudentPageSelectGroup, StudentPageCheckRasp, StudentPageMonday, AllRasp} from './Screens'
 
 import Auth from './Auth'
 
@@ -37,6 +37,7 @@ export default () => {
          <AuthStack.Screen name='Выбор группы' component={StudentPageSelectGroup}></AuthStack.Screen>
          <AuthStack.Screen name='Страница студента' component={StudentPageCheckRasp}></AuthStack.Screen>
          <AuthStack.Screen name='Расписание->Студент' component={StudentPageMonday}></AuthStack.Screen>
+         <AuthStack.Screen name='Расписание->Студент->общ' component={AllRasp}></AuthStack.Screen>
        </AuthStack.Navigator>
     </NavigationContainer>
   )
