@@ -226,11 +226,6 @@ const ScreenContainer = ({ children }) => (
             <Text style={styles.tableGridText}>Суббота</Text>
             </Row>
             </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => alert("Выбран рассписание")}>
-            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:'7%' , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
-            <Text style={styles.tableGridText}>Расписание на всю неделю</Text>
-            </Row>
-            </TouchableOpacity>
             <Row style={{backgroundColor: 'white' ,  width: '100%', paddingTop:30, marginTop:10 , height: 100, justifyContent: 'center'}}>
             </Row>
         </Grid>
@@ -298,11 +293,6 @@ return (
             <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент', {group: route.params.group, dayofweek: 'сб'}))}>
             <Row style={{backgroundColor: '#a6caf0' ,  width: '70%', paddingTop:'7%' , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
             <Text style={styles.tableGridText}>Суббота</Text>
-            </Row>
-            </TouchableOpacity>
-            <TouchableOpacity style={{width: '100%'}} onPress={() => navigation.dispatch(StackActions.push('Расписание->Студент->общ', {group: route.params.group, dayofweek: ''}))}>
-            <Row style={{backgroundColor: '#c4e2f2' ,  width: '70%', paddingTop:'7%' , marginTop:10 ,marginLeft:'15%', height: 70, justifyContent: 'center'}}>
-            <Text style={styles.tableGridText}>Расписание на всю неделю</Text>
             </Row>
             </TouchableOpacity>
             <Row style={{backgroundColor: 'white' ,  width: '100%', paddingTop:30, marginTop:10 , height: 100, justifyContent: 'center'}}>
@@ -509,84 +499,4 @@ export const StudentPageMonday = (props) => {
           <Text style={styles.text}>Загрузка...</Text>
       </ScreenContainer>
     );
-};
-  export const AllRasp = (props) => {
-    class Exensions extends Component{
-        constructor(props){
-            super(props);
-            this.state = ({
-                paraOne: '',
-                paraTwo: '',
-                paraThree: '',
-                paraFour: '',
-                dayofweek: '',
-            })
-        }
-        componentDidMount(){
-            console.log(this.state);
-            this.Exens();
-        }
-        Exens = () =>{
-            //'https://cors-anywhere.herokuapp.com/'
-            axios.
-            post(
-                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/rasp_stud.php',
-                JSON.stringify({
-                     group: props.route.params.group,
-                    dayweek: props.route.params.dayofweek,
-                }),
-            ).then((response) => {
-                if(props.route.params.dayofweek == 'пн'){
-                    this.setState({
-                        dayofweek: 'Понедельник'
-                    })
-                }else if(props.route.params.dayofweek == 'вт'){
-                    this.setState({
-                        dayofweek: 'Вторник'
-                    })
-                }else if(props.route.params.dayofweek == 'ср'){
-                    this.setState({
-                        dayofweek: 'Среда'
-                    })
-                }else if(props.route.params.dayofweek == 'чт'){
-                    this.setState({
-                        dayofweek: 'Четверг'
-                    })
-                }else if(props.route.params.dayofweek == 'пт'){
-                    this.setState({
-                        dayofweek: 'Пятница'
-                    })
-                }else if(props.route.params.dayofweek == 'сб'){
-                    this.setState({
-                        dayofweek: 'Суббота'
-                    })
-                }
-                console.log(response);
-                for (let index = 0; index < response.data.length; index++) {
-                    this.setState({
-                        para+index: response.data[index]
-                
-                    })
-                    
-                }
-                console.log(response);
-            })
-        }
-        render(){
-            return (
-                <View style={styles.textDayView} >
-                    <Text style={{textAlign: 'center', alignItems: 'flex-start', paddingBottom:5, fontSize: 24, marginBottom:15,borderBottomWidth :2,borderBottomColor: '#c4e2f2'}}>{this.state.dayofweek}</Text>
-                    {this.state.paraOne !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraOne}</Text>}
-                    {this.state.paraTwo !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraTwo}</Text>}
-                    {this.state.paraThree !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraThree}</Text> }
-                 {this.state.paraFour !== '' && <Text style={{backgroundColor: '#c4e2f2' ,textAlign: 'center',width:'90%' ,padding:5, fontSize: 24, marginBottom:15,borderWidth :2,borderColor: '#a6caf0'}}>{this.state.paraFour}</Text> }
-                </View>
-            );
-        }
-    }
-    return(
-        <ScreenContainer>
-            <Exensions />
-       </ScreenContainer>
-    )
 };
