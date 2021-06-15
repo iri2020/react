@@ -132,7 +132,7 @@ const ScreenContainer = ({ children }) => (
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://raspisanie-nggtki.000webhostapp.com/auth.php',
+                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/auth.php',
                 JSON.stringify({
                     userlastname: this.state.userlastname,
                     userpassword: this.state.userpassword,
@@ -321,12 +321,13 @@ export const TeacherPageMonday = (props) => {
             //'https://cors-anywhere.herokuapp.com/'
             axios.
             post(
-                'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
+                'https://cors-anywhere.herokuapp.com/'+'https://raspisanie-nggtki.000webhostapp.com/rasp_teach.php',
                 JSON.stringify({
                     userlastname: props.route.params.lastname,
                     dayweek: props.route.params.dayofweek,
                 }),
             ).then((response) => {
+                console.log(response);
                 if(props.route.params.dayofweek == 'пн'){
                     this.setState({
                         dayofweek: 'Понедельник'
@@ -445,22 +446,22 @@ export const StudentPageMonday = (props) => {
                 }
                 if(response.data[0]){
                     this.setState({
-                        paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2].replace(/\r?\n/g, " | ") +'. |'+' '+ response.data[0][3]
+                        paraOne: ' № '+response.data[0][0]+'. |'+' '+response.data[0][2] +'. |'+' '+ response.data[0][3] + '. |'+ ' ' +response.data[0][4] + '. '
                     })
                 }
                 if(response.data[1]){
                     this.setState({
-                        paraTwo: ' № '+response.data[1][0]+'. |'+' '+response.data[1][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[1][3]
+                        paraTwo: ' № '+response.data[1][0]+'. |'+' '+response.data[1][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[1][3]  + '. |'+ ' ' +response.data[1][4] + '. '
                     })
                 }
                 if(response.data[2]){
                     this.setState({
-                        paraThree: ' № '+response.data[2][0]+'. |'+' '+response.data[2][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][3]
+                        paraThree: ' № '+response.data[2][0]+'. |'+' '+response.data[2][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][3]  + '. |'+ ' ' +response.data[2][4] + '. '
                     })
                 }
                 if(response.data[3]){
                     this.setState({
-                        paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[2][3]
+                        paraFour: ' № '+response.data[3][0]+'. |'+' '+response.data[3][2].replace(/\r?\n/g, " | ")+'. |'+' '+ response.data[3][3] + '. |'+ ' ' +response.data[3][4] + '. '
                     })
                 }
                 console.log(response);
