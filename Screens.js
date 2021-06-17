@@ -116,7 +116,7 @@ const ScreenContainer = ({ children }) => (
             };
         }
         Authorization = () =>{
-            if(this.state.userlastname.length == 0 || this.state.userpassword.length == 0 ){
+            if(this.state.userlastname.length == 0 ){
                 this.setState({
                     errorMessage: true,
                     errorMessageText: 'Необходимо заполнить все поля!'
@@ -172,9 +172,6 @@ const ScreenContainer = ({ children }) => (
                 <View  style={styles.navbarButton}>
                     <Button title='Авторизация' color="#00AEEF" 
                     onPress={this.Authorization}/>
-                      <TouchableOpacity>
-                        <Text style={styles.textForgotPassword} onPress={() => navigation.push('Восстановление пароля')}>Забыли пароль?</Text>
-                      </TouchableOpacity>
                     <View style={styles.ErrorView}>
                        {(this.state.errorMessage) &&  <Text style={styles.ErrorMessage}>{this.state.errorMessageText}</Text> }
                     </View>

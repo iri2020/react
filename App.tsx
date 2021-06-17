@@ -32,7 +32,6 @@ export default () => {
       <AuthStack.Screen name='Хто я?' component={SelectRole}></AuthStack.Screen>
         <AuthStack.Screen name='Авторизация' component={SignIn}></AuthStack.Screen>
          <AuthStack.Screen name='Страница преподавателя' component={TeacherPage}></AuthStack.Screen>
-         <AuthStack.Screen name='Восстановление пароля' component={ForgotPassword}></AuthStack.Screen>
          <AuthStack.Screen name='Расписание->Преподаватель' component={TeacherPageMonday}></AuthStack.Screen>
          <AuthStack.Screen name='Выбор группы' component={StudentPageSelectGroup}></AuthStack.Screen>
          <AuthStack.Screen name='Страница студента' component={StudentPageCheckRasp}></AuthStack.Screen>
